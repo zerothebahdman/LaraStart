@@ -4,6 +4,7 @@ Vue.use(Router)
 
 import dashboard from './components/Dashboard'
 import profile from './components/Profile'
+import users from './components/Users'
 
 const routes = [{
         path: '/dashboard',
@@ -11,10 +12,15 @@ const routes = [{
         name: 'dashboard'
     },
     {
+        path: '/users',
+        component: users,
+        name: 'users'
+    },
+    {
         path: '/profile',
         component: profile,
         name: 'profile'
-    }
+    },
 ]
 
 
