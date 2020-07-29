@@ -7,48 +7,66 @@
 require("./bootstrap");
 
 window.Vue = require("vue");
+
+// Import moment.js into the application
 import moment from "moment";
 import router from "./router";
 
+// import sweetalert
+import Swal from "sweetalert2";
+window.Swal = Swal;
+
+// Register the toaster for use
+const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 4000,
+    timerProgressBar: true,
+    onOpen: toast => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+    }
+});
+
+// Make toaster a global component
+window.Toast = Toast;
+
+// Import VueProgress Bar to show the pregress bar after user was created
+import VueProgressBar from "vue-progressbar";
+
+Vue.use(VueProgressBar, {
+    color: "rgb(143, 255, 199)",
+    failedColor: "red",
+    height: "2px"
+});
+
+// For form validation
 import {
     Form,
     HasError,
     AlertError
 } from "vform";
 
+// Also for form validation
 window.Form = Form;
 Vue.component(HasError.name, HasError);
 Vue.component(AlertError.name, AlertError);
 
-Vue.filter('upText', function (text) {
+// Use filter to transform text to uppercase
+Vue.filter("upText", function (text) {
     return text.charAt(0).toUpperCase() + text.slice(1);
 });
 
-Vue.filter('myDate', function (created) {
-    return moment(created).format('MMMM Do YYYY');
+// Use Moment.js to format date better
+Vue.filter("myDate", function (created) {
+    return moment(created).format("MMMM Do YYYY");
 });
-
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component(
     "example-component",
     require("./components/ExampleComponent.vue").default
 );
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
 
 const app = new Vue({
     el: "#app",

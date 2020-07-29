@@ -208,7 +208,19 @@ export default {
             axios.get("api/user").then(({ data }) => (this.users = data.data));
         },
         createUser() {
+            // to initialize the progress bar
+            this.$Progress.start();
+            // to submit form to database
             this.form.post("api/user");
+            // to close the modal after user has been created
+            $("#addNew").modal("hide");
+            // to show the toast notification after user is created works with sweetalert
+            Toast.fire({
+                icon: "success",
+                title: "User Created successfully"
+            });
+            // to end the process of the progress bar
+            this.$Progress.finish();
         }
     },
     created() {
