@@ -32,12 +32,12 @@
                   <td>{{ user.type | upText }}</td>
                   <td>{{ user.created_at | myDate }}</td>
                   <td>
-                    <a href>
+                    <a href="#" class="btn btn-primary">
                       <i class="fas fa-edit"></i>
                     </a>
 
-                    <a href>
-                      <i class="fas fa-trash red"></i>
+                    <a href="#" class="btn btn-danger" @click="deleteUser(user.id)">
+                      <i class="fas fa-trash"></i>
                     </a>
                   </td>
                 </tr>
@@ -173,6 +173,31 @@ export default {
     };
   },
   methods: {
+    deleteUser(id) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        //   Send AJAX request to the server
+        if (result.value) {
+          this.form
+            .delete("api/user/" + id)
+            .then(() => {
+              Swal.fire("Deleted!", "Your file has been deleted.", "success");
+              // will fire an event to update the data in the table
+              Fire.$emit("UserReload");
+            })
+            .catch(() => {
+              Swal("Failed!!", "Something went wrong somewhere.", "warning");
+            });
+        }
+      });
+    },
     loadUsers() {
       axios.get("api/user").then(({ data }) => (this.users = data.data));
     },
@@ -184,7 +209,7 @@ export default {
         .post("api/user")
         .then(() => {
           // Used to fire an event immediately a new user is created and stored to display them to the user on the browser
-          Fire.$emit("AfterCreated");
+          Fire.$emit("UserReload");
           // to close the modal after user has been created
           $("#addNew").modal("hide");
           // to show the toast notification after user is created works with sweetalert
@@ -200,7 +225,7 @@ export default {
   },
   created() {
     this.loadUsers();
-    Fire.$on("AfterCreated", () => {
+    Fire.$on("UserReload", () => {
       this.loadUsers();
     });
   },
