@@ -2179,37 +2179,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2234,23 +2203,33 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     createUser: function createUser() {
+      var _this2 = this;
+
       // to initialize the progress bar
       this.$Progress.start(); // to submit form to database
 
-      this.form.post("api/user"); // to close the modal after user has been created
+      this.form.post("api/user").then(function () {
+        // Used to fire an event immediately a new user is created and stored to display them to the user on the browser
+        Fire.$emit("AfterCreated"); // to close the modal after user has been created
 
-      $("#addNew").modal("hide"); // to show the toast notification after user is created works with sweetalert
+        $("#addNew").modal("hide"); // to show the toast notification after user is created works with sweetalert
 
-      Toast.fire({
-        icon: "success",
-        title: "User Created successfully"
-      }); // to end the process of the progress bar
+        Toast.fire({
+          icon: "success",
+          title: "User Created successfully"
+        }); // to end the process of the progress bar
 
-      this.$Progress.finish();
+        _this2.$Progress.finish();
+      })["catch"](function () {});
     }
   },
   created: function created() {
+    var _this3 = this;
+
     this.loadUsers();
+    Fire.$on("AfterCreated", function () {
+      _this3.loadUsers();
+    });
   }
 });
 
@@ -63711,9 +63690,7 @@ var staticRenderFns = [
           },
           [
             _c("i", { staticClass: "fas fa-user-plus fa-faw" }),
-            _vm._v(
-              "\n                            Add New User\n                        "
-            )
+            _vm._v("\n              Add New User\n            ")
           ]
         )
       ])
@@ -63757,7 +63734,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
       _c("h5", { staticClass: "modal-title", attrs: { id: "addNewLabel" } }, [
-        _vm._v("\n                        Add New User\n                    ")
+        _vm._v("Add New User")
       ]),
       _vm._v(" "),
       _c(
@@ -63785,21 +63762,13 @@ var staticRenderFns = [
           staticClass: "btn btn-danger",
           attrs: { type: "button", "data-dismiss": "modal" }
         },
-        [
-          _vm._v(
-            "\n                            Close\n                        "
-          )
-        ]
+        [_vm._v("Close")]
       ),
       _vm._v(" "),
       _c(
         "button",
         { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-        [
-          _vm._v(
-            "\n                            Create\n                        "
-          )
-        ]
+        [_vm._v("Create")]
       )
     ])
   }
@@ -79062,9 +79031,9 @@ window.Toast = Toast; // Import VueProgress Bar to show the pregress bar after u
 
 
 Vue.use(vue_progressbar__WEBPACK_IMPORTED_MODULE_3___default.a, {
-  color: "rgb(143, 255, 199)",
+  color: "#2E53C5",
   failedColor: "red",
-  height: "2px"
+  height: "6px"
 }); // For form validation
 
  // Also for form validation
@@ -79080,6 +79049,7 @@ Vue.filter("upText", function (text) {
 Vue.filter("myDate", function (created) {
   return moment__WEBPACK_IMPORTED_MODULE_0___default()(created).format("MMMM Do YYYY");
 });
+window.Fire = new Vue();
 Vue.component("example-component", __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
 var app = new Vue({
   el: "#app",

@@ -36,9 +36,9 @@ window.Toast = Toast;
 import VueProgressBar from "vue-progressbar";
 
 Vue.use(VueProgressBar, {
-    color: "rgb(143, 255, 199)",
+    color: "#2E53C5",
     failedColor: "red",
-    height: "2px"
+    height: "6px"
 });
 
 // For form validation
@@ -62,6 +62,11 @@ Vue.filter("upText", function (text) {
 Vue.filter("myDate", function (created) {
     return moment(created).format("MMMM Do YYYY");
 });
+
+window.Fire = new Vue();
+
+
+
 
 Vue.component(
     "example-component",
