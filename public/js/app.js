@@ -2185,6 +2185,7 @@ __webpack_require__.r(__webpack_exports__);
       editmode: false,
       users: {},
       form: new Form({
+        id: "",
         name: "",
         email: "",
         password: "",
@@ -2195,7 +2196,15 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    updateUser: function updateUser() {},
+    updateUser: function updateUser() {
+      this.$Progress.start();
+      this.form.put("api/user/" + this.form.id).then(function () {
+        $("#addNew").modal("hide");
+        Swal.fire("Updated!", "Your profile has been updated succesfully.", "success");
+        Fire.$emit("UserReload");
+        $this.$Progress.finish(); // will fire an event to update the data in the table
+      })["catch"](function () {});
+    },
     editModal: function editModal(user) {
       this.editmode = true;
       this.form.reset();

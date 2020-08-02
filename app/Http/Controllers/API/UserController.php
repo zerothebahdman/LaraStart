@@ -63,7 +63,18 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        // Validate the user data before updating
+        $this->validate($request,[
+            'name' => 'required|string|max:191',
+            'email' => 'required|string|email|max:191|unique:users,email,'.$user->id,// the email is uniqie but when the user wants to edit his profile you have to escape the email and to do this use the email,.$user->id so without this part it wont let the user use the same email cause its already stored in the database.
+            'password' => 'sometimes|min:6',
+        ]);
+
+        $user->update($request->all());
+        return ['message' => 'Updated the user info'];
+
     }
 
     /**

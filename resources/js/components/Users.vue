@@ -164,6 +164,7 @@ export default {
       editmode: false,
       users: {},
       form: new Form({
+        id: "",
         name: "",
         email: "",
         password: "",
@@ -174,7 +175,23 @@ export default {
     };
   },
   methods: {
-    updateUser() {},
+    updateUser() {
+      this.$Progress.start();
+      this.form
+        .put("api/user/" + this.form.id)
+        .then(() => {
+          $("#addNew").modal("hide");
+          Swal.fire(
+            "Updated!",
+            "Your profile has been updated succesfully.",
+            "success"
+          );
+          Fire.$emit("UserReload");
+          $this.$Progress.finish();
+          // will fire an event to update the data in the table
+        })
+        .catch(() => {});
+    },
     editModal(user) {
       this.editmode = true;
       this.form.reset();
