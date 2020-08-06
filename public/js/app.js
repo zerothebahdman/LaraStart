@@ -2214,6 +2214,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     updateInfo: function updateInfo() {
+      this.$Progress.start();
       this.form.put("api/profile").then({})["catch"]({});
     },
     updateProfileImage: function updateProfileImage(e) {
@@ -2222,12 +2223,21 @@ __webpack_require__.r(__webpack_exports__);
       var file = e.target.files[0];
       var reader = new FileReader();
 
-      reader.onloadend = function (file) {
-        // console.log("RESULT", reader.result);
-        _this.form.photo = reader.result;
-      };
+      if (file["size"] < 2111775) {
+        reader.onloadend = function (file) {
+          // console.log("RESULT", reader.result);
+          _this.form.photo = reader.result;
+        };
 
-      reader.readAsDataURL(file);
+        reader.readAsDataURL(file);
+      } else {
+        Swal.fire({
+          icon: "warning",
+          type: "error",
+          title: "Oops....",
+          text: "You are uploading a large file max size should be 2MB"
+        });
+      }
     }
   },
   created: function created() {
@@ -2428,12 +2438,16 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     updateUser: function updateUser() {
+      var _this = this;
+
       this.$Progress.start();
       this.form.put("api/user/" + this.form.id).then(function () {
         $("#addNew").modal("hide");
         Swal.fire("Updated!", "Your profile has been updated succesfully.", "success");
         Fire.$emit("UserReload");
-        $this.$Progress.finish(); // will fire an event to update the data in the table
+
+        _this.$Progress.finish(); // will fire an event to update the data in the table
+
       })["catch"](function () {});
     },
     editModal: function editModal(user) {
@@ -2448,7 +2462,7 @@ __webpack_require__.r(__webpack_exports__);
       $("#addNew").modal("show");
     },
     deleteUser: function deleteUser(id) {
-      var _this = this;
+      var _this2 = this;
 
       Swal.fire({
         title: "Are you sure?",
@@ -2461,7 +2475,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         //   Send AJAX request to the server
         if (result.value) {
-          _this.form["delete"]("api/user/" + id).then(function () {
+          _this2.form["delete"]("api/user/" + id).then(function () {
             Swal.fire("Deleted!", "Your file has been deleted.", "success"); // will fire an event to update the data in the table
 
             Fire.$emit("UserReload");
@@ -2472,15 +2486,15 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     loadUsers: function loadUsers() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.get("api/user").then(function (_ref) {
         var data = _ref.data;
-        return _this2.users = data.data;
+        return _this3.users = data.data;
       });
     },
     createUser: function createUser() {
-      var _this3 = this;
+      var _this4 = this;
 
       // to initialize the progress bar
       this.$Progress.start(); // to submit form to database
@@ -2496,16 +2510,16 @@ __webpack_require__.r(__webpack_exports__);
           title: "User Created successfully"
         }); // to end the process of the progress bar
 
-        _this3.$Progress.finish();
+        _this4.$Progress.finish();
       })["catch"](function () {});
     }
   },
   created: function created() {
-    var _this4 = this;
+    var _this5 = this;
 
     this.loadUsers();
     Fire.$on("UserReload", function () {
-      _this4.loadUsers();
+      _this5.loadUsers();
     });
   }
 });

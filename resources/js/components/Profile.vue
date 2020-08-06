@@ -224,16 +224,33 @@ export default {
   },
   methods: {
     updateInfo() {
-      this.form.put("api/profile").then({}).catch({});
+      this.$Progress.start();
+      this.form
+        .put("api/profile")
+        .then(() => {
+          this.$Progress.finish();
+        })
+        .catch(() => {
+          this.$Progress.fail();
+        });
     },
     updateProfileImage(e) {
       let file = e.target.files[0];
       let reader = new FileReader();
-      reader.onloadend = (file) => {
-        // console.log("RESULT", reader.result);
-        this.form.photo = reader.result;
-      };
-      reader.readAsDataURL(file);
+      if (file["size"] < 2111775) {
+        reader.onloadend = (file) => {
+          // console.log("RESULT", reader.result);
+          this.form.photo = reader.result;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        Swal.fire({
+          icon: "warning",
+          type: "error",
+          title: "Oops....",
+          text: "You are uploading a large file max size should be 2MB",
+        });
+      }
     },
   },
   created() {

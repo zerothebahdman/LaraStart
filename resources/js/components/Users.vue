@@ -186,8 +186,8 @@ export default {
             "Your profile has been updated succesfully.",
             "success"
           );
+          this.$Progress.finish();
           Fire.$emit("UserReload");
-          $this.$Progress.finish();
           // will fire an event to update the data in the table
         })
         .catch(() => {});
