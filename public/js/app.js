@@ -2183,6 +2183,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2200,12 +2212,30 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     console.log("Component mounted.");
   },
+  methods: {
+    updateInfo: function updateInfo() {
+      this.form.put("api/profile").then({})["catch"]({});
+    },
+    updateProfileImage: function updateProfileImage(e) {
+      var _this = this;
+
+      var file = e.target.files[0];
+      var reader = new FileReader();
+
+      reader.onloadend = function (file) {
+        // console.log("RESULT", reader.result);
+        _this.form.photo = reader.result;
+      };
+
+      reader.readAsDataURL(file);
+    }
+  },
   created: function created() {
-    var _this = this;
+    var _this2 = this;
 
     axios.get("api/profile").then(function (_ref) {
       var data = _ref.data;
-      return _this.form.fill(data);
+      return _this2.form.fill(data);
     });
   }
 });
@@ -65345,11 +65375,52 @@ var render = function() {
                               ])
                             ]),
                             _vm._v(" "),
+                            _c("div", { staticClass: "form-group row" }, [
+                              _c(
+                                "label",
+                                {
+                                  staticClass: "col-sm-2 col-form-label",
+                                  attrs: { for: "inputProfilePhoto" }
+                                },
+                                [_vm._v("Profile Photo")]
+                              ),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-sm-10" }, [
+                                _c("input", {
+                                  staticClass: "form-control-file",
+                                  attrs: {
+                                    type: "file",
+                                    id: "inputProfilePhoto"
+                                  },
+                                  on: { change: _vm.updateProfileImage }
+                                })
+                              ])
+                            ]),
+                            _vm._v(" "),
                             _vm._m(4),
                             _vm._v(" "),
-                            _vm._m(5),
-                            _vm._v(" "),
-                            _vm._m(6)
+                            _c("div", { staticClass: "form-group row" }, [
+                              _c(
+                                "div",
+                                { staticClass: "offset-sm-2 col-sm-10" },
+                                [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-primary",
+                                      attrs: { type: "submit" },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.updateInfo($event)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Update")]
+                                  )
+                                ]
+                              )
+                            ])
                           ])
                         ]
                       )
@@ -65525,31 +65596,9 @@ var staticRenderFns = [
         "label",
         {
           staticClass: "col-sm-2 col-form-label",
-          attrs: { for: "inputProfilePhoto" }
-        },
-        [_vm._v("Profile Photo")]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-sm-10" }, [
-        _c("input", {
-          staticClass: "form-control-file",
-          attrs: { type: "file", id: "inputProfilePhoto" }
-        })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row" }, [
-      _c(
-        "label",
-        {
-          staticClass: "col-sm-2 col-form-label",
           attrs: { for: "inputPassword" }
         },
-        [_vm._v("Password")]
+        [_vm._v("Password (Leave empty if you are not changing it)")]
       ),
       _vm._v(" "),
       _c("div", { staticClass: "col-sm-10" }, [
@@ -65561,20 +65610,6 @@ var staticRenderFns = [
             placeholder: "Password"
           }
         })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row" }, [
-      _c("div", { staticClass: "offset-sm-2 col-sm-10" }, [
-        _c(
-          "button",
-          { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-          [_vm._v("Update")]
-        )
       ])
     ])
   }

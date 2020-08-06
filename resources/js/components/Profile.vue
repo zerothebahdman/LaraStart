@@ -152,11 +152,19 @@
                               class="col-sm-2 col-form-label"
                             >Profile Photo</label>
                             <div class="col-sm-10">
-                              <input type="file" class="form-control-file" id="inputProfilePhoto" />
+                              <input
+                                type="file"
+                                @change="updateProfileImage"
+                                class="form-control-file"
+                                id="inputProfilePhoto"
+                              />
                             </div>
                           </div>
                           <div class="form-group row">
-                            <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                            <label
+                              for="inputPassword"
+                              class="col-sm-2 col-form-label"
+                            >Password (Leave empty if you are not changing it)</label>
                             <div class="col-sm-10">
                               <input
                                 type="password"
@@ -168,7 +176,11 @@
                           </div>
                           <div class="form-group row">
                             <div class="offset-sm-2 col-sm-10">
-                              <button type="submit" class="btn btn-primary">Update</button>
+                              <button
+                                type="submit"
+                                @click.prevent="updateInfo"
+                                class="btn btn-primary"
+                              >Update</button>
                             </div>
                           </div>
                         </form>
@@ -209,6 +221,20 @@ export default {
   },
   mounted() {
     console.log("Component mounted.");
+  },
+  methods: {
+    updateInfo() {
+      this.form.put("api/profile").then({}).catch({});
+    },
+    updateProfileImage(e) {
+      let file = e.target.files[0];
+      let reader = new FileReader();
+      reader.onloadend = (file) => {
+        // console.log("RESULT", reader.result);
+        this.form.photo = reader.result;
+      };
+      reader.readAsDataURL(file);
+    },
   },
   created() {
     axios.get("api/profile").then(({ data }) => this.form.fill(data));
