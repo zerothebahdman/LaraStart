@@ -2,24 +2,24 @@
 .widget-user-header {
   background-size: cover;
   background-position: center center;
-  height: 250px !important;
+  /* height: 250px !important; */
 }
 </style>
 <template>
   <div class="container">
-    <div class="row justify-content-center">
+    <div class="row">
       <div class="col-md-12 mt-4">
         <div class="card card-widget widget-user">
           <!-- Add the bg color to the header using any of the bg-* classes -->
           <div
             class="widget-user-header text-white"
-            style="background-image:url('./img/photo1.png')"
+            style="background-image:url('./img/photo2.png'); text-align: center;"
           >
-            <h3 class="widget-user-username text-right">Elizabeth Pierce</h3>
-            <h5 class="widget-user-desc text-right">Web Designer</h5>
+            <h3 class="widget-user-username">Elizabeth Pierce</h3>
+            <h5 class="widget-user-desc">Web Designer</h5>
           </div>
           <div class="widget-user-image">
-            <img class="img-circle" src alt="User Avatar" />
+            <img class="img-circle" :src="profilePhoto()" alt="User Avatar" />
           </div>
           <div class="card-footer">
             <div class="row">
@@ -61,7 +61,7 @@
                     <div class="text-center">
                       <img
                         class="profile-user-img img-fluid img-circle"
-                        src
+                        :src="profilePhoto()"
                         alt="User profile picture"
                       />
                     </div>
@@ -240,6 +240,13 @@ export default {
     console.log("Component mounted.");
   },
   methods: {
+    profilePhoto() {
+      let photo =
+        this.form.photo.length > 200
+          ? this.form.photo
+          : "img/profile/" + this.form.photo;
+      return photo;
+    },
     updateInfo() {
       this.$Progress.start();
       this.form
