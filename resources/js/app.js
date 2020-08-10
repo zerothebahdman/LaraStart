@@ -29,6 +29,11 @@ const Toast = Swal.mixin({
     }
 });
 
+import Gate from "./Gate";
+Vue.prototype.$gate = new Gate(window.user);
+
+
+
 // Make toaster a global component
 window.Toast = Toast;
 
