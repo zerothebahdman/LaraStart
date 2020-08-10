@@ -49,7 +49,9 @@
         <!-- /.box -->
       </div>
     </div>
-
+    <div v-if="!$gate.isAdmin()">
+      <notFound></notFound>
+    </div>
     <!-- Modal Popup -->
     <div
       class="modal fade"
@@ -158,7 +160,9 @@
 </template>
 
 <script>
+import NotFound from "./NotFound";
 export default {
+  components: { NotFound },
   data() {
     return {
       editmode: false,
