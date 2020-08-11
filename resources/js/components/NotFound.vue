@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-12">
-        <h3 style="text-align: center;" class="pt-5">Opps... Page Not Found</h3>
+        <h3 style="text-align: center;" class="mt-5">Opps... Page Not Found</h3>
         <svg
           id="fd59ce54-f850-4dfc-bc34-dd7d379d600e"
           data-name="Layer 1"
