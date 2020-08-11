@@ -2518,6 +2518,94 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2940,6 +3028,12 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this6 = this;
 
+    Fire.$on("searching", function () {
+      var query = _this6.$parent.search;
+      axios.get("api/findUser?q=" + query).then(function (data) {
+        _this6.users = data.data;
+      })["catch"](function () {});
+    });
     this.loadUsers();
     Fire.$on("UserReload", function () {
       _this6.loadUsers();
@@ -8226,7 +8320,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.widget-user-header {\n  background-size: cover;\n  background-position: center center;\n  /* height: 250px !important; */\n}\n", ""]);
+exports.push([module.i, "\n.widget-user-header {\n    background-size: cover;\n    background-position: center center;\n    /* height: 250px !important; */\n}\n", ""]);
 
 // exports
 
@@ -66838,7 +66932,33 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-12 mt-4" }, [
         _c("div", { staticClass: "card card-widget widget-user" }, [
-          _vm._m(0),
+          _c(
+            "div",
+            {
+              staticClass: "widget-user-header text-white",
+              staticStyle: {
+                "background-image": "url('./img/photo2.png')",
+                "text-align": "center"
+              }
+            },
+            [
+              _c("h3", { staticClass: "widget-user-username" }, [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(this.form.name) +
+                    "\n                    "
+                )
+              ]),
+              _vm._v(" "),
+              _c("h5", { staticClass: "widget-user-desc" }, [
+                _vm._v(
+                  "\n                        Account Type: " +
+                    _vm._s(this.form.type) +
+                    "\n                    "
+                )
+              ])
+            ]
+          ),
           _vm._v(" "),
           _c("div", { staticClass: "widget-user-image" }, [
             _c("img", {
@@ -66847,7 +66967,7 @@ var render = function() {
             })
           ]),
           _vm._v(" "),
-          _vm._m(1)
+          _vm._m(0)
         ]),
         _vm._v(" "),
         _c("section", { staticClass: "content" }, [
@@ -66867,25 +66987,33 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("h3", { staticClass: "profile-username text-center" }, [
-                      _vm._v("Nina Mcintire")
+                      _vm._v(
+                        "\n                                        " +
+                          _vm._s(this.form.name) +
+                          "\n                                    "
+                      )
                     ]),
                     _vm._v(" "),
                     _c("p", { staticClass: "text-muted text-center" }, [
-                      _vm._v("Software Engineer")
+                      _vm._v(
+                        "\n                                        " +
+                          _vm._s(this.form.type) +
+                          "\n                                    "
+                      )
                     ]),
                     _vm._v(" "),
-                    _vm._m(2)
+                    _vm._m(1)
                   ])
                 ])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-md-9" }, [
                 _c("div", { staticClass: "card" }, [
-                  _vm._m(3),
+                  _vm._m(2),
                   _vm._v(" "),
                   _c("div", { staticClass: "card-body" }, [
                     _c("div", { staticClass: "tab-content" }, [
-                      _vm._m(4),
+                      _vm._m(3),
                       _vm._v(" "),
                       _c(
                         "div",
@@ -66912,7 +67040,8 @@ var render = function() {
                                         name: "model",
                                         rawName: "v-model",
                                         value: _vm.form.name,
-                                        expression: "form.name"
+                                        expression:
+                                          "\n                                                                form.name\n                                                            "
                                       }
                                     ],
                                     staticClass: "form-control",
@@ -66967,7 +67096,8 @@ var render = function() {
                                         name: "model",
                                         rawName: "v-model",
                                         value: _vm.form.email,
-                                        expression: "form.email"
+                                        expression:
+                                          "\n                                                                form.email\n                                                            "
                                       }
                                     ],
                                     staticClass: "form-control",
@@ -67022,7 +67152,8 @@ var render = function() {
                                         name: "model",
                                         rawName: "v-model",
                                         value: _vm.form.bio,
-                                        expression: "form.bio"
+                                        expression:
+                                          "\n                                                                form.bio\n                                                            "
                                       }
                                     ],
                                     staticClass: "form-control",
@@ -67063,7 +67194,11 @@ var render = function() {
                                   staticClass: "col-sm-2 col-form-label",
                                   attrs: { for: "inputProfilePhoto" }
                                 },
-                                [_vm._v("Profile Photo")]
+                                [
+                                  _vm._v(
+                                    "Profile\n                                                        Photo"
+                                  )
+                                ]
                               ),
                               _vm._v(" "),
                               _c("div", { staticClass: "col-sm-10" }, [
@@ -67087,7 +67222,7 @@ var render = function() {
                                 },
                                 [
                                   _vm._v(
-                                    "Password (Leave empty if you are not changing it)"
+                                    "Password (Leave\n                                                        empty if you are not\n                                                        changing it)"
                                   )
                                 ]
                               ),
@@ -67102,7 +67237,8 @@ var render = function() {
                                         name: "model",
                                         rawName: "v-model",
                                         value: _vm.form.password,
-                                        expression: "form.password"
+                                        expression:
+                                          "\n                                                                form.password\n                                                            "
                                       }
                                     ],
                                     staticClass: "form-control",
@@ -67156,7 +67292,11 @@ var render = function() {
                                         }
                                       }
                                     },
-                                    [_vm._v("Update")]
+                                    [
+                                      _vm._v(
+                                        "\n                                                            Update\n                                                        "
+                                      )
+                                    ]
                                   )
                                 ]
                               )
@@ -67176,28 +67316,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "widget-user-header text-white",
-        staticStyle: {
-          "background-image": "url('./img/photo2.png')",
-          "text-align": "center"
-        }
-      },
-      [
-        _c("h3", { staticClass: "widget-user-username" }, [
-          _vm._v("Elizabeth Pierce")
-        ]),
-        _vm._v(" "),
-        _c("h5", { staticClass: "widget-user-desc" }, [_vm._v("Web Designer")])
-      ]
-    )
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -84436,7 +84554,15 @@ window.Fire = new Vue();
 Vue.component("example-component", __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
 var app = new Vue({
   el: "#app",
-  router: _router__WEBPACK_IMPORTED_MODULE_1__["default"]
+  router: _router__WEBPACK_IMPORTED_MODULE_1__["default"],
+  data: {
+    search: ''
+  },
+  methods: {
+    searchit: function searchit() {
+      Fire.$emit('searching');
+    }
+  }
 });
 Vue.component('passport-clients', __webpack_require__(/*! ./components/passport/Clients.vue */ "./resources/js/components/passport/Clients.vue")["default"]);
 Vue.component('passport-authorized-clients', __webpack_require__(/*! ./components/passport/AuthorizedClients.vue */ "./resources/js/components/passport/AuthorizedClients.vue")["default"]);
@@ -85144,9 +85270,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Dashboard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Dashboard */ "./resources/js/components/Dashboard.vue");
 /* harmony import */ var _components_Profile__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Profile */ "./resources/js/components/Profile.vue");
 /* harmony import */ var _components_Users__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Users */ "./resources/js/components/Users.vue");
+/* harmony import */ var _components_NotFound__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/NotFound */ "./resources/js/components/NotFound.vue");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
+
 
 
 
@@ -85162,6 +85290,10 @@ var routes = [{
   path: '/profile',
   component: _components_Profile__WEBPACK_IMPORTED_MODULE_3__["default"],
   name: 'profile'
+}, {
+  path: '*',
+  component: _components_NotFound__WEBPACK_IMPORTED_MODULE_5__["default"],
+  name: 'notFound'
 }];
 /* harmony default export */ __webpack_exports__["default"] = (new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history',

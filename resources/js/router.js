@@ -5,6 +5,7 @@ Vue.use(Router)
 import dashboard from './components/Dashboard'
 import profile from './components/Profile'
 import users from './components/Users'
+import notFound from './components/NotFound'
 
 const routes = [{
         path: '/dashboard',
@@ -20,6 +21,11 @@ const routes = [{
         path: '/profile',
         component: profile,
         name: 'profile'
+    },
+    {
+        path: '*',
+        component: notFound,
+        name: 'notFound'
     },
 ]
 
